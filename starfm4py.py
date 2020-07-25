@@ -42,7 +42,9 @@ def block2row(array, row, folder, block_id=None):
 
 # Divide an image in overlapping blocks   
 def partition(image, folder):
+    # create a dask array from the image in chunks (31 x 150)
     image_da = da.from_array(image, chunks = (windowSize,image.shape[1]))
+    # padding the array before and after with 15 pixels
     image_pad = da.pad(image_da, windowSize//2, mode='constant')
     
     for i in range(0,windowSize):
